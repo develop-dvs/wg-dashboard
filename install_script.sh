@@ -41,8 +41,8 @@ elif [[ "$(lsb_release -is)" == "Ubuntu" ]]; then
 	apt-get install -y wireguard
 	# install linux kernel headers
 	apt-get install -y linux-headers-$(uname -r)
-elif [[ "$(lsb_release -is)" == "Debian" ]]; then
-	if [[ "$(lsb_release -rs)" -ge "10" ]]; then
+elif [[ "$(lsb_release -is)" == "Parrot" ]]; then
+	if [[ "$(lsb_release -rs)" -ge "5" ]]; then
 		# add unstable list
 		echo "deb http://deb.debian.org/debian/ unstable main" > /etc/apt/sources.list.d/unstable.list
 		printf 'Package: *\nPin: release a=unstable\nPin-Priority: 90\n' > /etc/apt/preferences.d/limit-unstable
@@ -67,8 +67,7 @@ fi
 sysctl -w net.ipv4.ip_forward=1
 echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 # install nodejs
-curl https://deb.nodesource.com/setup_10.x | bash
-apt-get install -y nodejs
+apt-get install -y nodejs npm
 
 # go into home folder
 cd /opt
@@ -126,7 +125,7 @@ if [[ "$(lsb_release -is)" == "Raspbian" ]]; then
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]]; then
 	# download coredns
 	curl -L https://github.com/coredns/coredns/releases/download/v1.5.1/coredns_1.5.1_linux_amd64.tgz --output coredns.tgz
-elif [[ "$(lsb_release -is)" == "Debian" ]]; then
+elif [[ "$(lsb_release -is)" == "Parrot" ]]; then
 	# download coredns
 	curl -L https://github.com/coredns/coredns/releases/download/v1.5.1/coredns_1.5.1_linux_amd64.tgz --output coredns.tgz
 fi
